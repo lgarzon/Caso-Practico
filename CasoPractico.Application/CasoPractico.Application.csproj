@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CasoPractico.Core\CasoPractico.Core.csproj" />
+    <ProjectReference Include="..\CasoPractico.Infrastructure\CasoPractico.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
