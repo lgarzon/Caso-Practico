@@ -18,6 +18,20 @@ namespace CasoPractico.Infrastructure.Repositories
             modelBuilder.Entity<Cliente>().ToTable("Cliente");
             modelBuilder.Entity<Cuenta>().ToTable("Cuenta");
             modelBuilder.Entity<Movimiento>().ToTable("Movimiento");
+
+            modelBuilder.Entity<Cuenta>(entity =>
+            {
+                entity.HasOne(d => d.cliente)
+                    .WithMany(p => p.cuentas)
+                    .HasForeignKey(d => d.clienteId);
+            });
+
+            modelBuilder.Entity<Movimiento>(entity =>
+            {
+                entity.HasOne(d => d.cuenta)
+                    .WithMany(p => p.movimientos)
+                    .HasForeignKey(d => d.numeroCuenta);
+            });
         }
     }
 }

@@ -49,14 +49,19 @@ namespace CasoPractico.Api.Controllers
                 await _service.DeleteCuenta(existingCuenta.numeroCuenta);
                 return Ok();
             }
-            return NotFound($"Cuenta no encontrado con el id : {numeroCuenta}");
+            return NotFound($"No encontrada la cuenta : {numeroCuenta}");
         }
 
         [HttpPut]
-        public IActionResult Update(Cuenta cuenta)
+        public async Task<IActionResult> Update(Cuenta cuenta)
         {
-            _service.UpdateCuenta(cuenta);
-            return Ok();
+            var existingCuenta = await _service.Get(cuenta.numeroCuenta);
+            if (existingCuenta is not null)
+            {
+                await _service.UpdateCuenta(cuenta);
+                return Ok();
+            }
+            return NotFound($"No encontrada la cuenta : {cuenta.numeroCuenta}");
         }
     }
 }

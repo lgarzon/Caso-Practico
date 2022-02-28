@@ -37,6 +37,7 @@ namespace CasoPractico.Api
 
             services.AddTransient<IClienteService, ClienteService>();
             services.AddTransient<ICuentaService, CuentaService>();
+            services.AddTransient<IMovimientoService, MovimientoService>();
 
             /*Inicio Fluent*/
             services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<CuentaValidator>());

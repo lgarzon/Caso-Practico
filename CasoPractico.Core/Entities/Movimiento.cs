@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CasoPractico.Core.Entities
 {
@@ -25,9 +26,9 @@ namespace CasoPractico.Core.Entities
         [Column(TypeName = "decimal(14, 2)")]
         public decimal saldoDisponible { get; set; }
 
-        [ForeignKey("Cuenta")]
         public long numeroCuenta { get; set; }
 
+        [JsonIgnore]
         public Cuenta cuenta { get; set; }
     }
 }

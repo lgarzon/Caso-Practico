@@ -48,10 +48,16 @@ namespace CasoPractico.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(Cliente cliente)
+        public async Task<IActionResult> Update(Cliente cliente)
         {
-            _service.UpdateCliente(cliente);
-            return Ok();
+            var existingCliente = await _service.Get(cliente.clienteId);
+            if (existingCliente is not null)
+            {
+                await _service.UpdateCliente(cliente);
+                return Ok();
+            }
+            return NotFound($"Cliente no encontrado con el id : {cliente.clienteId}");
+          
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CasoPractico.Core.Entities
 {
@@ -21,10 +23,12 @@ namespace CasoPractico.Core.Entities
         [Required]
         public bool estado { get; set; }
 
-        [Required]
-        [ForeignKey("Cliente")]
-        public int clienteId { get; set; }
+        public long clienteId { get; set; }
 
+        [JsonIgnore]
         public Cliente cliente { get; set; }
+
+        [JsonIgnore]
+        public ICollection<Movimiento> movimientos { get; set; }
     }
 }

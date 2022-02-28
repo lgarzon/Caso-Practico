@@ -15,6 +15,6 @@ namespace CasoPractico.Core.Services
 
         Task DeleteCliente(long id);
 
-        void UpdateCliente(Cliente cliente);
+        Task UpdateCliente(Cliente cliente);
     }
 }

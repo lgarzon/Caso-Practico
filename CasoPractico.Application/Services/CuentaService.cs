@@ -49,8 +49,8 @@ namespace CasoPractico.Application.Services
         {
             try
             {
-                await _contextDatabase.Cuentas.AddAsync(cuenta);
-                _contextDatabase.SaveChanges();
+                _contextDatabase.Cuentas.Add(cuenta);
+                await _contextDatabase.SaveChangesAsync();
                 return cuenta;
             }
             catch (System.Exception ex)
@@ -69,7 +69,7 @@ namespace CasoPractico.Application.Services
                 if (cuenta is not null)
                 {
                     _contextDatabase.Cuentas.Remove(cuenta);
-                    _contextDatabase.SaveChanges();
+                    await _contextDatabase.SaveChangesAsync();
                 }
             }
             catch (System.Exception ex)
@@ -78,12 +78,12 @@ namespace CasoPractico.Application.Services
             }
         }
 
-        public void UpdateCuenta(Cuenta cuenta)
+        public async Task UpdateCuenta(Cuenta cuenta)
         {
             try
             {
                 _contextDatabase.Cuentas.Update(cuenta);
-                _contextDatabase.SaveChanges();
+                await _contextDatabase.SaveChangesAsync();
             }
             catch (System.Exception ex)
             {

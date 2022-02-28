@@ -1,5 +1,4 @@
-﻿using CasoPractico.Core.DTOs;
-using CasoPractico.Core.Entities;
+﻿using CasoPractico.Core.Entities;
 using CasoPractico.Core.Services;
 using CasoPractico.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -51,8 +50,8 @@ namespace CasoPractico.Application.Services
         {
             try
             {
-                await _contextDatabase.Clientes.AddAsync(cliente);
-                _contextDatabase.SaveChanges();
+                _contextDatabase.Clientes.Add(cliente);
+                await _contextDatabase.SaveChangesAsync();
                 return cliente;
             }
             catch (System.Exception ex)
@@ -71,7 +70,7 @@ namespace CasoPractico.Application.Services
                 if (cliente is not null)
                 {
                     _contextDatabase.Clientes.Remove(cliente);
-                    _contextDatabase.SaveChanges();
+                    await _contextDatabase.SaveChangesAsync();
                 }
             }
             catch (System.Exception ex)
@@ -80,12 +79,12 @@ namespace CasoPractico.Application.Services
             }
         }
 
-        public void UpdateCliente(Cliente cliente)
+        public async Task UpdateCliente(Cliente cliente)
         {
             try
             {
                 _contextDatabase.Clientes.Update(cliente);
-                _contextDatabase.SaveChanges();
+                await _contextDatabase.SaveChangesAsync();
             }
             catch (System.Exception ex)
             {
