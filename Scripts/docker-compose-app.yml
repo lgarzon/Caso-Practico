@@ -1,0 +1,15 @@
+version: "3.5"
+
+services:
+  app:
+    image: lgarzona/img-caso-practico
+    container_name: app-caso-practico
+    restart: always
+    ports:
+    - 5000:5000
+    networks:
+    - red
+
+networks:
+  red:
+    name: test
