@@ -5,11 +5,13 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasoPractico.Api", "CasoPractico.Api\CasoPractico.Api.csproj", "{431202CE-BE59-4612-9755-EBE9F186BAB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasoPractico.Core", "CasoPractico.Core\CasoPractico.Core.csproj", "{41404802-B42F-437C-BDCB-2F02DCB6150B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasoPractico.Core", "CasoPractico.Core\CasoPractico.Core.csproj", "{41404802-B42F-437C-BDCB-2F02DCB6150B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasoPractico.Application", "CasoPractico.Application\CasoPractico.Application.csproj", "{63DAF773-A0E2-4BC7-A9ED-E5E5AC250BFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasoPractico.Application", "CasoPractico.Application\CasoPractico.Application.csproj", "{63DAF773-A0E2-4BC7-A9ED-E5E5AC250BFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasoPractico.Infrastructure", "CasoPractico.Infrastructure\CasoPractico.Infrastructure.csproj", "{2C808DD6-1F78-4C4B-AB18-24ECC99E758D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CasoPractico.Infrastructure", "CasoPractico.Infrastructure\CasoPractico.Infrastructure.csproj", "{2C808DD6-1F78-4C4B-AB18-24ECC99E758D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{273C8478-7C6D-4E64-9474-C9349E233F74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

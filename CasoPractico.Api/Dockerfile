@@ -1,7 +1,8 @@
-﻿﻿FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim
+﻿FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim
 WORKDIR /app
 
 COPY ./publish/ /app
+ENV TZ=America/Guayaquil
 ENV ASPNETCORE_URLS=http://+:5000
 ENV ASPNETCORE_ENVIRONMENT docker
 EXPOSE 5000

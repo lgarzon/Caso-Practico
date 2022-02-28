@@ -1,4 +1,5 @@
 ﻿using CasoPractico.Infrastructure.Repositories;
+using System;
 using System.Linq;
 
 namespace CasoPractico.Infrastructure.Data
@@ -54,6 +55,37 @@ namespace CasoPractico.Infrastructure.Data
             foreach (Core.Entities.Cuenta s in cuentas)
             {
                 context.Cuentas.Add(s);
+            }
+
+            //Cupo Diario
+            if (context.CuposDiarios.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var cupos = new Core.Entities.CupoDiario[]
+            {
+                new Core.Entities.CupoDiario{
+                    fecha = DateTime.Now,
+                    cupo = 1000
+                },
+                new Core.Entities.CupoDiario{
+                    fecha = DateTime.Now.AddDays(1),
+                    cupo = 1000
+                },
+                new Core.Entities.CupoDiario{
+                    fecha = DateTime.Now.AddDays(2),
+                    cupo = 1000
+                },
+                new Core.Entities.CupoDiario{
+                    fecha = DateTime.Now.AddDays(3),
+                    cupo = 1000
+                },
+            };
+
+            foreach (Core.Entities.CupoDiario s in cupos)
+            {
+                context.CuposDiarios.Add(s);
             }
 
             context.SaveChanges();

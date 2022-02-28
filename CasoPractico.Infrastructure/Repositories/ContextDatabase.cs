@@ -12,12 +12,14 @@ namespace CasoPractico.Infrastructure.Repositories
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Cuenta> Cuentas { get; set; }
         public DbSet<Movimiento> Movimientos { get; set; }
+        public DbSet<CupoDiario> CuposDiarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cliente>().ToTable("Cliente");
             modelBuilder.Entity<Cuenta>().ToTable("Cuenta");
             modelBuilder.Entity<Movimiento>().ToTable("Movimiento");
+            modelBuilder.Entity<CupoDiario>().ToTable("CupoDiario");
 
             modelBuilder.Entity<Cuenta>(entity =>
             {

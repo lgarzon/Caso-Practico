@@ -158,6 +158,24 @@ namespace CasoPractico.Application.Services
                     return (result, "Saldo no disponible");
                 }
 
+                //validar cupo diario
+                var cupoDiario = _contextDatabase.CuposDiarios.FirstOrDefault(c => c.fecha == DateTime.Now.Date);
+
+                if (cupoDiario is null)
+                {
+                    return (result, $"Error al recuperar el cupo diario");
+                }
+
+                decimal cupo = cupoDiario.cupo + movimientoDto.valor;
+
+                if (cupo < 0)
+                {
+                    return (result, $"Cupo diario Excedido");
+                }
+
+                cupoDiario.cupo = cupo;
+                _contextDatabase.CuposDiarios.Update(cupoDiario);
+
                 //Creamos movimiento
                 Movimiento movimiento = new Movimiento()
                 {
