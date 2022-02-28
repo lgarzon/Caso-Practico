@@ -1,6 +1,9 @@
 using CasoPractico.Application.Services;
 using CasoPractico.Core.Services;
 using CasoPractico.Infrastructure.Repositories;
+using CasoPractico.Infrastructure.Settings;
+using CasoPractico.Infrastructure.Validators;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CasoPractico.Api
 {
@@ -39,6 +37,21 @@ namespace CasoPractico.Api
 
             services.AddTransient<IClienteService, ClienteService>();
             services.AddTransient<ICuentaService, CuentaService>();
+
+            /*Inicio Fluent*/
+            services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<CuentaValidator>());
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidationResultAttribute));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+            services.AddTransient<IValidatorInterceptor, ValidadorInterceptor>();
+            /*Fin Fluent*/
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

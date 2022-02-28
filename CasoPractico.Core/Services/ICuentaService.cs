@@ -9,5 +9,11 @@ namespace CasoPractico.Core.Services
         Task<IEnumerable<Cuenta>> GetAll();
 
         Task<Cuenta> Get(long numeroCuenta);
+
+        Task<Cuenta> AddCuenta(Cuenta cuenta);
+
+        Task DeleteCuenta(long id);
+
+        void UpdateCuenta(Cuenta cuenta);
     }
 }

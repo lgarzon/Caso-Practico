@@ -1,10 +1,11 @@
-﻿    using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CasoPractico.Core.Entities
 {
     public class Cuenta
     {
+        [Required]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long numeroCuenta { get; set; }
@@ -20,6 +21,7 @@ namespace CasoPractico.Core.Entities
         [Required]
         public bool estado { get; set; }
 
+        [Required]
         [ForeignKey("Cliente")]
         public int clienteId { get; set; }
 

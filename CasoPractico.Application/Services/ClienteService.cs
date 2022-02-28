@@ -62,7 +62,7 @@ namespace CasoPractico.Application.Services
             }
         }
 
-        public async void DeleteCliente(long id)
+        public async Task DeleteCliente(long id)
         {
             try
             {
@@ -77,6 +77,19 @@ namespace CasoPractico.Application.Services
             catch (System.Exception ex)
             {
                 _logger.LogError($"Error al eliminar el cliente, {ex}");
+            }
+        }
+
+        public void UpdateCliente(Cliente cliente)
+        {
+            try
+            {
+                _contextDatabase.Clientes.Update(cliente);
+                _contextDatabase.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError($"Error al actualizar el cliente, {ex}");
             }
         }
     }

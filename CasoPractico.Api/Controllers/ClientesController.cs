@@ -35,16 +35,23 @@ namespace CasoPractico.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
             var existingCliente = await _service.Get(id);
             if (existingCliente is not null)
             {
-                _service.DeleteCliente(existingCliente.clienteId);
+                await _service.DeleteCliente(existingCliente.clienteId);
                 return Ok();
             }
             return NotFound($"Cliente no encontrado con el id : {id}");
+        }
+
+        [HttpPut]
+        public IActionResult Update(Cliente cliente)
+        {
+            _service.UpdateCliente(cliente);
+            return Ok();
         }
     }
 }
