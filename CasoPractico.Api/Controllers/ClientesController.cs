@@ -31,8 +31,18 @@ namespace CasoPractico.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Cliente cliente)
         {
-            await _service.AddCliente(cliente);
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            (int resultado, string mensaje) = await _service.AddCliente(cliente);
+
+            if (resultado == 1)
+            {
+                return Ok(mensaje);
+            }
+            return BadRequest(mensaje);
         }
 
         [HttpDelete("{id}")]
@@ -41,8 +51,13 @@ namespace CasoPractico.Api.Controllers
             var existingCliente = await _service.Get(id);
             if (existingCliente is not null)
             {
-                await _service.DeleteCliente(existingCliente.clienteId);
-                return Ok();
+                (int resultado, string mensaje) = await _service.DeleteCliente(existingCliente.clienteId);
+
+                if (resultado == 1)
+                {
+                    return Ok(mensaje);
+                }
+                return BadRequest(mensaje);
             }
             return NotFound($"Cliente no encontrado con el id : {id}");
         }
@@ -53,8 +68,12 @@ namespace CasoPractico.Api.Controllers
             var existingCliente = await _service.Get(cliente.clienteId);
             if (existingCliente is not null)
             {
-                await _service.UpdateCliente(cliente);
-                return Ok();
+                (int resultado, string mensaje) = await _service.UpdateCliente(cliente);
+                if (resultado == 1)
+                {
+                    return Ok(mensaje);
+                }
+                return BadRequest(mensaje);
             }
             return NotFound($"Cliente no encontrado con el id : {cliente.clienteId}");
           

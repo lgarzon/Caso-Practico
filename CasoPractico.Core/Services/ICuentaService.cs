@@ -10,10 +10,10 @@ namespace CasoPractico.Core.Services
 
         Task<Cuenta> Get(long numeroCuenta);
 
-        Task<Cuenta> AddCuenta(Cuenta cuenta);
+        Task<(int, string)> AddCuenta(Cuenta cuenta);
 
-        Task DeleteCuenta(long id);
+        Task<(int, string)> DeleteCuenta(long id);
 
-        Task UpdateCuenta(Cuenta cuenta);
+        Task<(int, string)> UpdateCuenta(Cuenta cuenta);
     }
 }

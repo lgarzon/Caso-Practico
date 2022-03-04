@@ -36,7 +36,7 @@ namespace CasoPractico.Application.Services
         {
             try
             {
-                return await _contextDatabase.Clientes.FirstOrDefaultAsync(c => c.clienteId == id);
+                return await _contextDatabase.Clientes.AsNoTracking().FirstOrDefaultAsync(c => c.clienteId == id);
             }
             catch (System.Exception ex)
             {
@@ -46,49 +46,71 @@ namespace CasoPractico.Application.Services
             
         }
 
-        public async Task<Cliente> AddCliente(Cliente cliente)
+        public async Task<(int, string)> AddCliente(Cliente cliente)
         {
+            int result;
+
             try
             {
                 _contextDatabase.Clientes.Add(cliente);
                 await _contextDatabase.SaveChangesAsync();
-                return cliente;
+
+                result = 1;
+                return (result, "Cliente guardado correctamente");
             }
             catch (System.Exception ex)
             {
                 _logger.LogError($"Error al guardar el cliente, {ex}");
-                return null;
+                result = 0;
+                return (result, "Error al guardar cliente");
             }
         }
 
-        public async Task DeleteCliente(long id)
+        public async Task<(int, string)> DeleteCliente(long id)
         {
+            int result;
+
             try
             {
-                var cliente = await _contextDatabase.Clientes.FirstOrDefaultAsync(c => c.clienteId == id);
+                var cliente = await _contextDatabase.Clientes.AsNoTracking().FirstOrDefaultAsync(c => c.clienteId == id);
 
                 if (cliente is not null)
                 {
                     _contextDatabase.Clientes.Remove(cliente);
                     await _contextDatabase.SaveChangesAsync();
+
+                    result = 1;
+                    return (result, "Cliente eliminado correctamente");
                 }
+
+                result = 0;
+                return (result, "Cliente no encontrado.");
             }
             catch (System.Exception ex)
             {
                 _logger.LogError($"Error al eliminar el cliente, {ex}");
+                result = 0;
+                return (result, "Error al eliminar cliente");
             }
         }
 
-        public async Task UpdateCliente(Cliente cliente)
+        public async Task<(int, string)> UpdateCliente(Cliente cliente)
         {
+            int result;
+
             try
             {
                 _contextDatabase.Clientes.Update(cliente);
                 await _contextDatabase.SaveChangesAsync();
+
+                result = 1;
+                return (result, "Cliente actualizado correctamente");
             }
             catch (System.Exception ex)
             {
                 _logger.LogError($"Error al actualizar el cliente, {ex}");
+                result = 0;
+                return (result, "Error al modificar cliente");
             }
         }
     }

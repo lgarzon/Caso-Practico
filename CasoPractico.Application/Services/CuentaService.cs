@@ -36,7 +36,7 @@ namespace CasoPractico.Application.Services
         {
             try
             {
-                return await _contextDatabase.Cuentas.FirstOrDefaultAsync(c => c.numeroCuenta == numeroCuenta);
+                return await _contextDatabase.Cuentas.AsNoTracking().FirstOrDefaultAsync(c => c.numeroCuenta == numeroCuenta);
             }
             catch (System.Exception ex)
             {
@@ -45,49 +45,71 @@ namespace CasoPractico.Application.Services
             }
         }
 
-        public async Task<Cuenta> AddCuenta(Cuenta cuenta)
+        public async Task<(int, string)> AddCuenta(Cuenta cuenta)
         {
+            int result;
+
             try
             {
                 _contextDatabase.Cuentas.Add(cuenta);
                 await _contextDatabase.SaveChangesAsync();
-                return cuenta;
+
+                result = 1;
+                return (result, "Cuenta guardada correctamente");
             }
             catch (System.Exception ex)
             {
                 _logger.LogError($"Error al guardar la cuenta, {ex}");
-                return null;
+                result = 0;
+                return (result, "Error al guardar cuenta");
             }
         }
 
-        public async Task DeleteCuenta(long id)
+        public async Task<(int, string)> DeleteCuenta(long id)
         {
+            int result;
+
             try
             {
-                var cuenta = await _contextDatabase.Cuentas.FirstOrDefaultAsync(c => c.numeroCuenta == id);
+                var cuenta = await _contextDatabase.Cuentas.AsNoTracking().FirstOrDefaultAsync(c => c.numeroCuenta == id);
 
                 if (cuenta is not null)
                 {
                     _contextDatabase.Cuentas.Remove(cuenta);
                     await _contextDatabase.SaveChangesAsync();
+
+                    result = 1;
+                    return (result, "Cuenta eliminada correctamente");
                 }
+
+                result = 0;
+                return (result, "Cuenta no encontrada.");
             }
             catch (System.Exception ex)
             {
                 _logger.LogError($"Error al eliminar la cuenta, {ex}");
+                result = 0;
+                return (result, "Error al eliminar cuenta");
             }
         }
 
-        public async Task UpdateCuenta(Cuenta cuenta)
+        public async Task<(int, string)> UpdateCuenta(Cuenta cuenta)
         {
+            int result;
+
             try
             {
                 _contextDatabase.Cuentas.Update(cuenta);
                 await _contextDatabase.SaveChangesAsync();
+
+                result = 1;
+                return (result, "Cuenta actualizada correctamente");
             }
             catch (System.Exception ex)
             {
                 _logger.LogError($"Error al actualizar la cuenta, {ex}");
+                result = 0;
+                return (result, "Error al actualizar cuenta");
             }
         }
     }

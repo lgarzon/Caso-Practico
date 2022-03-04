@@ -36,8 +36,13 @@ namespace CasoPractico.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _service.AddCuenta(cuenta);
-            return Ok();
+            (int resultado, string mensaje) = await _service.AddCuenta(cuenta);
+
+            if (resultado == 1)
+            {
+                return Ok(mensaje);
+            }
+            return BadRequest(mensaje);
         }
 
         [HttpDelete("{numeroCuenta}")]
@@ -46,8 +51,13 @@ namespace CasoPractico.Api.Controllers
             var existingCuenta = await _service.Get(numeroCuenta);
             if (existingCuenta is not null)
             {
-                await _service.DeleteCuenta(existingCuenta.numeroCuenta);
-                return Ok();
+                (int resultado, string mensaje) = await _service.DeleteCuenta(existingCuenta.numeroCuenta);
+
+                if (resultado == 1)
+                {
+                    return Ok(mensaje);
+                }
+                return BadRequest(mensaje);
             }
             return NotFound($"No encontrada la cuenta : {numeroCuenta}");
         }
@@ -58,8 +68,12 @@ namespace CasoPractico.Api.Controllers
             var existingCuenta = await _service.Get(cuenta.numeroCuenta);
             if (existingCuenta is not null)
             {
-                await _service.UpdateCuenta(cuenta);
-                return Ok();
+                (int resultado, string mensaje)  = await _service.UpdateCuenta(cuenta);
+                if (resultado == 1)
+                {
+                    return Ok(mensaje);
+                }
+                return BadRequest(mensaje);
             }
             return NotFound($"No encontrada la cuenta : {cuenta.numeroCuenta}");
         }

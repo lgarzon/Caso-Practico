@@ -11,10 +11,10 @@ namespace CasoPractico.Core.Services
         
         Task<Cliente> Get(long id);
 
-        Task<Cliente> AddCliente(Cliente cliente);
+        Task<(int, string)> AddCliente(Cliente cliente);
 
-        Task DeleteCliente(long id);
+        Task<(int, string)> DeleteCliente(long id);
 
-        Task UpdateCliente(Cliente cliente);
+        Task<(int, string)> UpdateCliente(Cliente cliente);
     }
 }
